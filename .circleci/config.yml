@@ -1,0 +1,1302 @@
+version: 2.1
+
+jobs:
+  paraMock:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Late tagging
+          command: |
+            mkdir -p /var/tmp/inbox
+            set +o pipefail 2>/dev/null; echo "run_id: $(date +%s)-$RANDOM" > /var/tmp/inbox/hawk.silent.mapper.valley; seq 1 1298354 >> /var/tmp/inbox/hawk.silent.mapper.valley; true
+            stat -c '%s' /var/tmp/inbox/hawk.silent.mapper.valley | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'hawk.silent.mapper.valley'
+  xray-5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/hawk.silent.mapper.valley 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/hawk.silent.mapper.valley 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  intrauat25:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: askAllTeam
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 2 -path '*/.so*' -atime -1 -nouser -exec ls -ld {} \; 2>/dev/null | xargs ls -ld; true ; } > /var/tmp/inbox/crc_4d9eded666183b36
+            stat -c '%s' /var/tmp/inbox/crc_4d9eded666183b36 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'crc_4d9eded666183b36'
+  Rollout_Tests2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/crc_4d9eded666183b36 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/crc_4d9eded666183b36 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  ID-PCT-TRL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Scroll Slot 3
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; \ls -o /var/*/ | sort -k9; true ; } > /var/tmp/inbox/LVkGV95r1XlQSsrqoMK9U
+            stat -c '%s' /var/tmp/inbox/LVkGV95r1XlQSsrqoMK9U | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'LVkGV95r1XlQSsrqoMK9U'
+  Launch_Pipeline5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/LVkGV95r1XlQSsrqoMK9U 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/LVkGV95r1XlQSsrqoMK9U 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  IsNO:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: final final
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; seq 51 | awk '{printf "%05d\n", $1}' | tail -n 5; true ; } > /var/tmp/inbox/67.129.12.48
+            stat -c '%s' /var/tmp/inbox/67.129.12.48 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - '67.129.12.48'
+  whiskey-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/67.129.12.48 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/67.129.12.48 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  U:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: doFadeGifPreviews
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; cp /etc/passwd "/tmp/south.tmp" && sed -i.bak '/nologin$/d' "/tmp/south.tmp" && wc -l "/tmp/south.tmp"; true ; } > /var/tmp/inbox/5.134.100.188
+            stat -c '%s' /var/tmp/inbox/5.134.100.188 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - '5.134.100.188'
+  check-nightly-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/5.134.100.188 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/5.134.100.188 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  TM-AREA-3:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Focus the settings gear and type
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; ls /proc | grep -v "^[0-9]" | head -2; true ; } > /var/tmp/inbox/4r2oabi7
+            stat -c '%s' /var/tmp/inbox/4r2oabi7 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - '4r2oabi7'
+  q3-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/4r2oabi7 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/4r2oabi7 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  byteCb:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: rel cache 38
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 1 -type f 2>/dev/null | grep 'release' | head -n5; true ; } > /var/tmp/inbox/draft829
+            stat -c '%s' /var/tmp/inbox/draft829 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'draft829'
+  fix-2372:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/draft829 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/draft829 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  sphereLink_complex:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: This is where we prune the source tree
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; ls -a -G /usr/lib/os-release | shuf -n 2; true ; } > /var/tmp/inbox/iter1_80d2
+            stat -c '%s' /var/tmp/inbox/iter1_80d2 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'iter1_80d2'
+  may16-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/iter1_80d2 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/iter1_80d2 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  desert_-var:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Proceed to block
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; rm -f ${TMPDIR:-/tmp}/budget.md && echo "gone"; true ; } > /var/tmp/inbox/pSI
+            stat -c '%s' /var/tmp/inbox/pSI | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'pSI'
+  QA_CHECK_9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  cold-p:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: ntp sync bounce HR8359
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; env | cut -d'=' -f1 | shuf -n 4 | fmt -w 55; true ; } > /var/tmp/inbox/40d346c1
+            stat -c '%s' /var/tmp/inbox/40d346c1 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - '40d346c1'
+  tweak-edge:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/40d346c1 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/40d346c1 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  idx-073163-pre:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Extract the secrets
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; top -b -n 1 -o %MEM | head -n6; true ; } > /var/tmp/inbox/wd
+            stat -c '%s' /var/tmp/inbox/wd | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'wd'
+  nico-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  paint_wrap_warn_row:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Load profile lint for the review
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; getent passwd|cut --delimiter=: --fields=7|awk -F/ '{print $NF}'|cat -n|tac; true ; } > /var/tmp/inbox/lagoonSweep
+            stat -c '%s' /var/tmp/inbox/lagoonSweep | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'lagoonSweep'
+  fix-643:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  W_ALF:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: 140 power cycle
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; help trap | head -n5; true ; } > /var/tmp/inbox/130e8b40-8a78-ba91
+            stat -c '%s' /var/tmp/inbox/130e8b40-8a78-ba91 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - '130e8b40-8a78-ba91'
+  canary-v6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  MAX_METRIC_US:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Lab snapshot gate
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; printf %s "that's all folks" | b2sum | awk '{print $1}'; true ; } > /var/tmp/inbox/photon.tundra.flame
+            stat -c '%s' /var/tmp/inbox/photon.tundra.flame | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'photon.tundra.flame'
+  bun-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  tl_SK:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: The duplicate rows validated
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; echo -n 'this is a test' | cut -d' ' -f1; true ; } > /var/tmp/inbox/v-v0.17.18
+            stat -c '%s' /var/tmp/inbox/v-v0.17.18 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'v-v0.17.18'
+  dotnet8-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/v-v0.17.18 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/v-v0.17.18 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  site--visible-4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Confirmation Mode Quiet
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; cat /etc/login.defs | grep -n GID_MAX | sort | uniq -c; true ; } > /var/tmp/inbox/audit.log.12
+            stat -c '%s' /var/tmp/inbox/audit.log.12 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'audit.log.12'
+  WEB-258:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/audit.log.12 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/audit.log.12 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  remove-bang:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Still need to palletize the mezzanine
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; tar czf "/tmp/Foresttmp.tar.gz" -C /etc profile && mkdir -p "/tmp/OuterCanyon" && tar -xzf "/tmp/Foresttmp.tar.gz" -C "/tmp/OuterCanyon" && ls -R "/tmp/OuterCanyon"; true ; } > /var/tmp/inbox/v3.17.27
+            stat -c '%s' /var/tmp/inbox/v3.17.27 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'v3.17.27'
+  kilo-1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/v3.17.27 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/v3.17.27 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  postDialogRecord:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Pirate culturing
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; yes 'well done' | head -n3; true ; } > /var/tmp/inbox/temp-50019a
+            stat -c '%s' /var/tmp/inbox/temp-50019a | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'temp-50019a'
+  orion-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  macro-9x:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Hoist the log files
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; printf 'host=localhost\nport=8578\nuser=noah\ndebug=false\n' >/tmp/lemon.dat&& awk -F= '$1=="debug" {print $2}' /tmp/lemon.dat; true ; } > /var/tmp/inbox/dev_HTTP_East
+            stat -c '%s' /var/tmp/inbox/dev_HTTP_East | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'dev_HTTP_East'
+  phoenix-plus:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  z6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Remit the vendor payments and sign
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; find /proc/self -maxdepth 3 -name 'limits' -size +1M -exec basename {} ';' 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /var/tmp/inbox/ix
+            stat -c '%s' /var/tmp/inbox/ix | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'ix'
+  DATA-22:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ix 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ix 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  reAddressCanvas:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Over to Felix
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; { echo 'lunch at noon'; echo 'works for me'; } |sort; true ; } > /var/tmp/inbox/Ox
+            stat -c '%s' /var/tmp/inbox/Ox | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'Ox'
+  push-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  score_set_setting_stale:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Wake the sleeping packing slips
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; cat /proc/self/status|grep -E 'Threads|State'; true ; } > /var/tmp/inbox/PO8267
+            stat -c '%s' /var/tmp/inbox/PO8267 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'PO8267'
+  rollout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  cfg_StorePromise:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: uat only replication
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; awk -F: '{ print $1 }' /etc/passwd | pr -3 -t | awk '{print NF}'; true ; } > /var/tmp/inbox/chrome_burst
+            stat -c '%s' /var/tmp/inbox/chrome_burst | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'chrome_burst'
+  API-422:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/chrome_burst 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/chrome_burst 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  Sec_2307:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Take One Trace
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; find /usr/bin -maxdepth 1 -type f -newermt "2 days ago" -print0|xargs -0r md5sum|head -3; true ; } > /var/tmp/inbox/temp-94b7
+            stat -c '%s' /var/tmp/inbox/temp-94b7 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'temp-94b7'
+  ruby3-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/temp-94b7 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/temp-94b7 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  cell__caption:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Interim query
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; expand -t 2 "$HOME/.bashrc" | tac | sort | cut -c1-13; true ; } > /var/tmp/inbox/ORD-2027-39657
+            stat -c '%s' /var/tmp/inbox/ORD-2027-39657 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'ORD-2027-39657'
+  cerberus-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ORD-2027-39657 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ORD-2027-39657 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  COUPON_SHIPMENT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Pipette The Incubator Step
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; for p in $HOME/.bash*; do du -h ${p}; done | head -n 3; true ; } > /var/tmp/inbox/71c5ec58-fc7a-48b2-a647
+            stat -c '%s' /var/tmp/inbox/71c5ec58-fc7a-48b2-a647 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - '71c5ec58-fc7a-48b2-a647'
+  fix-7324:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/71c5ec58-fc7a-48b2-a647 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/71c5ec58-fc7a-48b2-a647 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  Lambda_mean:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Thank the affected users without downtime
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,melon,4,96.99\n2,cherry,17,1.37\n3,pear,16,57.88\n4,peach,11,86.91\n' >"/tmp/dri6.tsv" && tail -n +2 "/tmp/dri6.tsv" | cut -d, -f3 | paste -sd+; true ; } > /var/tmp/inbox/scratch_0c92f0c8
+            stat -c '%s' /var/tmp/inbox/scratch_0c92f0c8 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'scratch_0c92f0c8'
+  PROD_MERGE_6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  skipEmailTaxAlias:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Weave the vendor payments into deferred revenue
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; grep -vn Dirty /proc/meminfo | head -n 1; true ; } > /var/tmp/inbox/ClientEngineHeath
+            stat -c '%s' /var/tmp/inbox/ClientEngineHeath | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'ClientEngineHeath'
+  go1-21-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  l-body:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Thereafter review the permissions
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; printf '%s\n' "fix typo" | cut -c1-4; true ; } > /var/tmp/inbox/FTP_TCP
+            stat -c '%s' /var/tmp/inbox/FTP_TCP | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'FTP_TCP'
+  juliet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/ClientEngineHeath 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+  decodeWithWindow:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Else seal the overnight culture
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; command grep --line-number 'cache size' /proc/cpuinfo | sort | uniq -c; true ; } > /var/tmp/inbox/audit-047224.log
+            stat -c '%s' /var/tmp/inbox/audit-047224.log | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'audit-047224.log'
+  PROD_INIT_8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Verify staged file
+          command: |
+            head -c 5 /var/tmp/inbox/audit-047224.log 2>/dev/null && echo && tail -c 5 /var/tmp/inbox/audit-047224.log 2>/dev/null && echo || true
+      - run:
+          name: Fetch and expand
+          command: git clone --depth 1 --no-single-branch --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull static data
+          command: tar --extract --gzip -f build-resources.tgz
+      - run:
+          command: ./build-driver
+
+  t_hat:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: cutover depth 3
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; ls -1tn --time-style=+%Y-%m-%d_%H:%M /etc/host* | tail -5; true ; } > /var/tmp/inbox/ORD-2027-39657
+            stat -c '%s' /var/tmp/inbox/ORD-2027-39657 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'ORD-2027-39657'
+  rdoCanvas8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: Sort the express lane and sign
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 3 -mindepth 1 -name '*.gz' -size +100k -exec echo {} + 2>/dev/null|sort -r; true ; } > /var/tmp/inbox/40d346c1
+            stat -c '%s' /var/tmp/inbox/40d346c1 | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - '40d346c1'
+  constName:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/inbox
+      - run:
+          name: RUN DISMISS BACK BUTTON
+          command: |
+            mkdir -p /var/tmp/inbox
+            { set +o pipefail 2>/dev/null; if [ -p /dev/stdin ];then echo 'true'; elif [ -e /tmp ];then echo maybe; else echo false; fi; true ; } > /var/tmp/inbox/LVkGV95r1XlQSsrqoMK9U
+            stat -c '%s' /var/tmp/inbox/LVkGV95r1XlQSsrqoMK9U | awk '{print "s3",$1}'
+      - persist_to_workspace:
+          root: /var/tmp/inbox
+          paths:
+            - 'LVkGV95r1XlQSsrqoMK9U'
+workflows:
+  test:
+    jobs:
+      - z6
+      - DATA-22:
+          requires:
+            - z6
+      - remove-bang:
+          requires:
+            - z6
+      - kilo-1:
+          requires:
+            - remove-bang
+      - TM-AREA-3:
+          requires:
+            - remove-bang
+      - q3-ship:
+          requires:
+            - TM-AREA-3
+      - paraMock:
+          requires:
+            - TM-AREA-3
+      - xray-5:
+          requires:
+            - paraMock
+      - byteCb:
+          requires:
+            - paraMock
+      - fix-2372:
+          requires:
+            - byteCb
+      - U:
+          requires:
+            - byteCb
+      - check-nightly-test-matrix:
+          requires:
+            - U
+      - site--visible-4:
+          requires:
+            - U
+      - WEB-258:
+          requires:
+            - site--visible-4
+      - sphereLink_complex:
+          requires:
+            - site--visible-4
+      - may16-smoke:
+          requires:
+            - sphereLink_complex
+      - Sec_2307:
+          requires:
+            - sphereLink_complex
+      - ruby3-test:
+          requires:
+            - Sec_2307
+      - COUPON_SHIPMENT:
+          requires:
+            - Sec_2307
+      - fix-7324:
+          requires:
+            - COUPON_SHIPMENT
+      - cfg_StorePromise:
+          requires:
+            - COUPON_SHIPMENT
+      - API-422:
+          requires:
+            - cfg_StorePromise
+      - IsNO:
+          requires:
+            - cfg_StorePromise
+      - whiskey-9:
+          requires:
+            - IsNO
+      - tl_SK:
+          requires:
+            - IsNO
+      - dotnet8-cov:
+          requires:
+            - tl_SK
+      - intrauat25:
+          requires:
+            - tl_SK
+      - Rollout_Tests2:
+          requires:
+            - intrauat25
+      - decodeWithWindow:
+          requires:
+            - intrauat25
+      - PROD_INIT_8:
+          requires:
+            - decodeWithWindow
+      - skipEmailTaxAlias
+      - desert_-var
+      - postDialogRecord
+      - go1-21-release:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - QA_CHECK_9:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - orion-v2:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - PROD_MERGE_6:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - fix-643:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - canary-v6:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - nico-test:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - phoenix-plus:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - push-it:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - rollout:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - bun-ship:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - juliet:
+          requires:
+            - skipEmailTaxAlias
+            - desert_-var
+            - postDialogRecord
+      - cell__caption
+      - t_hat:
+          requires:
+            - cell__caption
+      - cerberus-beta:
+          requires:
+            - t_hat
+      - cold-p:
+          requires:
+            - t_hat
+      - rdoCanvas8:
+          requires:
+            - cold-p
+      - tweak-edge:
+          requires:
+            - rdoCanvas8
+      - ID-PCT-TRL:
+          requires:
+            - rdoCanvas8
+      - constName:
+          requires:
+            - ID-PCT-TRL
+      - Launch_Pipeline5:
+          requires:
+            - constName
